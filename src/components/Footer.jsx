@@ -1,19 +1,16 @@
 import React from 'react';
 import styled from "@emotion/styled";
+import { socialLinks } from '../shared/socialLinks';
 
 const Footer = () => {
   return(
     <Container>
       <div style={{ marginBottom: "12px" }}>
-        <IconLink href="https://www.facebook.com/mitch.tolnay">
-          <Icon className="fa fa-facebook" />
-        </IconLink>
-        <IconLink href="https://www.instagram.com/mitchinthemountains/">
-          <Icon className="fa fa-instagram" />
-        </IconLink>
-        <IconLink href="https://soundcloud.com/mitchinthemountains">
-          <Icon className="fa fa-soundcloud" />
-        </IconLink>
+        {socialLinks.map(link => (
+          <IconLink href={link.href}>
+            <Icon className={link.className} />
+          </IconLink>
+        ))}
       </div>
       <p style={{ margin: 0 }}>Copyright © 2021 Mitch Tolnay</p>
     </Container>
@@ -26,14 +23,10 @@ const Container = styled.div({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  position: "fixed",
-  bottom: 0,
-  right: 0,
-  left: 0,
   background: "black",
   color: "white",
   flexDirection: "column",
-  padding: "24px 0 40px",
+  padding: "60px 0 60px",
 });
 
 const IconLink = styled.a({
@@ -41,7 +34,7 @@ const IconLink = styled.a({
 });
 
 const Icon = styled.i({
-  fontSize: "28px",
+  fontSize: "22px",
   margin: "12px",
   color: "white",
 });

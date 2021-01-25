@@ -14,20 +14,23 @@ const App = () => {
     <Router>
       <Main>
         <Header />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/music">
-            <Music />
-          </Route>
-          <Route exact path="/biography">
-            <Biography />
-          </Route>
-          <Route exact path="/contact">
-            <Contact />
-          </Route>
-        </Switch>
+        <Wrapper>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/music">
+              <Music />
+            </Route>
+            <Route exact path="/biography">
+              <Biography />
+            </Route>
+            <Route exact path="/contact">
+              <Contact />
+            </Route>
+          </Switch>
+        </Wrapper>
+
         <Footer />
       </Main>
     </Router>
@@ -37,5 +40,12 @@ const App = () => {
 export default App;
 
 const Main = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  minHeight: "100vh",
   position: "relative",
+});
+
+const Wrapper = styled.div({
+  flexGrow: 1,
 });
