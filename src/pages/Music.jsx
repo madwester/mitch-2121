@@ -12,6 +12,7 @@ const Music = () => {
       <iframe
         height="600px"
         width="100%"
+        maxWidth="1065px"
         src="https://www.youtube.com/embed/hRuw18AaXV4"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

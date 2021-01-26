@@ -8,6 +8,7 @@ const FONTS = {
   hachi: "'Hachi Maru Pop', cursive",
   another: "'Just Another Hand', cursive",
   longCang: "'Long Cang', cursive",
+  mandrope: "'Manrope', sans-serif",
   mansalva: "'Mansalva', cursive",
   shep: "'Mrs Sheppards', cursive",
   reenie: "'Reenie Beanie', cursive",

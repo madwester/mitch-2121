@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
@@ -7,10 +7,44 @@ import { NavLink } from "react-router-dom";
 import FONTS from '../shared/fonts';
 
 const Header = () => {
+  const [scrollingDown, setScrollingDown] = useState(false);
+  const [scrollTop, setScrollTop] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      let currentPosition = window.pageYOffset; // or use document.documentElement.scrollTop;
+      if (currentPosition > scrollTop) {
+        // downscroll code
+        setScrollingDown(true);
+      } else {
+        // upscroll code
+        setScrollingDown(false);
+      }
+      setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
+    }
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [scrollTop]);
+
   const [show, setShow] = useState(false);
-  const headerLinks = ['biography', 'music', 'contact']
+  const headerLinks = ['biography', 'events & weddings', 'contact']
+  const headerItems = [
+    {
+      title: "Biography",
+      slug: "biography",
+    },
+    {
+      title: "Events & weddings",
+      slug: "events"
+    },
+    {
+      title: "Contact",
+      slug: "contact"
+    },
+  ];
   return (
-    <Container>
+    <Container scrollingDown={scrollingDown}>
       <Logo dark={show} exact to="/">Mitch Tolnay</Logo>
       <HeaderLinks>
         {headerLinks.map(link => (
@@ -23,8 +57,8 @@ const Header = () => {
       </BurgerMenuButton>
       <MobileHeader show={show}>
           <MobileHeaderLinks show={show}>
-            {headerLinks.map(link => (
-              <MobileLinkStyled exact to={`/${link}`}>{link}</MobileLinkStyled>
+            {headerItems.map(item => (
+              <MobileLinkStyled active={true} exact to={`/${item.slug}`}>{item.title}</MobileLinkStyled>
           ))}
           </MobileHeaderLinks>
       </MobileHeader>
@@ -46,26 +80,29 @@ const moveInBottomAnimation = keyframes({
   "0%": { opacity: 1, transform: "translateY(0)" }
 });
 
-const Container = styled.div({
+const Container = styled.div(({ scrollingDown }) => ({
+  alignItems: "center",
+  color: "white",
   display: "flex",
   fontSize: "14px",
-  justifyContent: "space-between",
   height: "100px",
-  alignItems: "center",
-  padding: "0 40px",
-  color: "white",
-  position: "fixed",
-  top: 0,
+  justifyContent: "space-between",
   left: 0,
-  right: 0
-});
+  padding: "0 40px",
+  position: "fixed",
+  right: 0,
+  top: scrollingDown ? "-100px" : 0,
+  transition: "0.6s all",
+  // borderBottom: "1px solid black",
+  // boxShadow: "rgba(36, 18, 77, 0.32) 0px 4px 4px -4px"
+}));
 
 const Logo = styled(Link)(({ dark }) => ({
   fontSize: "46px",
   fontWeight: 900,
   textDecoration: "none",
   textTransform: "capitalize",
-  color: dark ? "black" : "white",
+  color: dark ? "black" : "black",
   position: "relative",
   zIndex: 1,
   fontFamily: FONTS.amita,
@@ -82,17 +119,19 @@ const Logo = styled(Link)(({ dark }) => ({
 }));
 
 const HeaderLinks = styled.div({
+  display: "flex",
+  textTransform: "capitalize",
   [`@media (max-width: ${BREAKPOINT.small}px)`]: {
     display: "none",
   },
 });
 
 const LinkStyled = styled(NavLink)({
-  color: "white",
+  color: "black",
   marginLeft: "18px",
   fontSize: "20px",
+  fontWeight: 800,
   textDecoration: "none",
-  textTransform: "capitalize"
 });
 
 const MobileHeader = styled.div(({ show }) => ({
@@ -147,7 +186,7 @@ const BurgerMenuButton = styled.button({
 });
 
 const BurgerLine = styled.div(({ active }) => ({
-  background: active ? "black" : "white",
+  background: active ? "black" : "black",
   position: "absolute",
   display: "block",
   top: "0",

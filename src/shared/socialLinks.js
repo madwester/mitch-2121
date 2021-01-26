@@ -1,14 +1,14 @@
 export const socialLinks = [
   {
-    className: "fa fa-instagram",
+    className: "fab fa-instagram",
     href: "https://www.instagram.com/mitchinthemountains/",
   },
   {
-    className: "fa fa-facebook",
+    className: "fab fa-facebook",
     href: "https://www.instagram.com/mitchinthemountains/",
   },
   {
-    className: "fa fa-soundcloud",
+    className: "fab fa-soundcloud",
     href: "https://soundcloud.com/mitchinthemountains",
   },
 ];
