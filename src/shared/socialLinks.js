@@ -4,7 +4,7 @@ export const socialLinks = [
     href: "https://www.instagram.com/mitchinthemountains/",
   },
   {
-    className: "fab fa-facebook",
+    className: "fab fa-facebook-f",
     href: "https://www.instagram.com/mitchinthemountains/",
   },
   {

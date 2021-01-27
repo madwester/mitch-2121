@@ -23,10 +23,12 @@ const Container = styled.div({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  background: "black",
-  color: "white",
+  background: "#eee",
+  color: "black",
   flexDirection: "column",
   padding: "60px 0 60px",
+  marginTop: "120px"
+
 });
 
 const IconLink = styled.a({
@@ -36,5 +38,5 @@ const IconLink = styled.a({
 const Icon = styled.i({
   fontSize: "22px",
   margin: "12px",
-  color: "white",
+  color: "black",
 });

@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from "@emotion/styled";
+import WeddingPhoto from '../images/wedding1.png';
+import { Heading, Text, Row } from '../shared/styledComponents';
 
-const Items = [
+const FeatureItems = [
   {
     heading: "Acoustic",
     subheading: "Lorem ipsum dolor, sit amet consectetur",
@@ -21,28 +23,36 @@ const Items = [
 
 const Events = () => {
   return(
-    <Main>
+    <Container>
       <Row>
-        {Items.map(item => (
-          <Item>
+        <Content>
+          <Heading>Wedding, party or corporate event?</Heading>
+          <Text>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.
+          </Text>
+        </Content>
+      </Row>
+      
+      <FeatureRow>
+        {FeatureItems.map(item => (
+          <FeatureItem>
             <Icon className={item.iconClassName} />
             <ItemHeading>{item.heading}</ItemHeading>
             <ItemSubheading>{item.subheading}</ItemSubheading>
-          </Item>
+          </FeatureItem>
         ))}
-      </Row>
-    </Main>
+      </FeatureRow>
+    </Container>
   );
 };
 
 export default Events;
 
-const Main = styled.div({
-  background: "white",
-  padding: "140px 0 80px"
+const Container = styled.div({
+  padding: "40px 0 0"
 });
 
-const Row = styled.div({
+const FeatureRow = styled.div({
   alignItems: "flex-start",
   display: "grid",
   gridGap: "48px",
@@ -51,7 +61,12 @@ const Row = styled.div({
   maxWidth: "1080px",
 });
 
-const Item = styled.div({
+const Content = styled.div({
+  marginBottom: "80px",
+  textAlign: "center"
+});
+
+const FeatureItem = styled.div({
   backgroundColor: "#f8f7fc",
   borderRadius: "8px",
   padding: "32px"

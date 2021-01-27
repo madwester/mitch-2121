@@ -18,6 +18,7 @@ const globalStyles = css({
   "*": {
     boxSizing: "border-box",
     fontFamily: FONTS.mandrope,
+    lineHeight: 1.5,
   },
 });
 

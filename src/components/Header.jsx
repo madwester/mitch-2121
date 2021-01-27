@@ -5,19 +5,21 @@ import { keyframes } from "@emotion/react";
 import { BREAKPOINT } from "../shared/breakpoint";
 import { NavLink } from "react-router-dom";
 import FONTS from '../shared/fonts';
+import { socialLinks } from '../shared/socialLinks';
+import { headerItems } from '../shared/headerItems';
+import COLORS from "../shared/colors";
 
 const Header = () => {
   const [scrollingDown, setScrollingDown] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
+  let path = window.location.pathname;
 
   useEffect(() => {
     const onScroll = () => {
       let currentPosition = window.pageYOffset; // or use document.documentElement.scrollTop;
       if (currentPosition > scrollTop) {
-        // downscroll code
         setScrollingDown(true);
       } else {
-        // upscroll code
         setScrollingDown(false);
       }
       setScrollTop(currentPosition <= 0 ? 0 : currentPosition);
@@ -28,37 +30,39 @@ const Header = () => {
   }, [scrollTop]);
 
   const [show, setShow] = useState(false);
-  const headerLinks = ['biography', 'events & weddings', 'contact']
-  const headerItems = [
-    {
-      title: "Biography",
-      slug: "biography",
-    },
-    {
-      title: "Events & weddings",
-      slug: "events"
-    },
-    {
-      title: "Contact",
-      slug: "contact"
-    },
-  ];
   return (
     <Container scrollingDown={scrollingDown}>
-      <Logo dark={show} exact to="/">Mitch Tolnay</Logo>
       <HeaderLinks>
-        {headerLinks.map(link => (
-          <LinkStyled exact to={`/${link}`}>{link}</LinkStyled>
-        ))}
+        {headerItems.map((item, i) => {
+        return (
+          <LinkWrapper active={path.includes(item.title)}>
+            <LinkStyled
+              
+              exact to={`/${item.slug}`}
+              key={i}
+            >
+              {item.title}
+            </LinkStyled>
+          </LinkWrapper>
+         
+        )})}
       </HeaderLinks>
+      <Logo dark={show} exact to="/">Mitch Tolnay</Logo>
+      <SocialLinks>
+      {socialLinks.map(link => (
+          <IconLink href={link.href}>
+            <Icon className={link.className} />
+          </IconLink>
+        ))}
+      </SocialLinks>
       <BurgerMenuButton onClick={() => setShow(!show)}>
         <BurgerLine active={show} className="top" />
         <BurgerLine active={show} className="bottom" />
       </BurgerMenuButton>
       <MobileHeader show={show}>
           <MobileHeaderLinks show={show}>
-            {headerItems.map(item => (
-              <MobileLinkStyled active={true} exact to={`/${item.slug}`}>{item.title}</MobileLinkStyled>
+            {headerItems.map((item, i) => (
+              <MobileLinkStyled exact key={i} to={`/${item.slug}`}>{item.title}</MobileLinkStyled>
           ))}
           </MobileHeaderLinks>
       </MobileHeader>
@@ -76,62 +80,72 @@ const fadeAnimation = keyframes({
 
 const moveInBottomAnimation = keyframes({
   "0%": { opacity: 0, transform: "translateY(3rem)" },
-  "0%": { opacity: 0, transform: "translateY(-1rem)" },
-  "0%": { opacity: 1, transform: "translateY(0)" }
+  "50%": { opacity: 0, transform: "translateY(-1rem)" },
+  "100%": { opacity: 1, transform: "translateY(0)" }
 });
 
 const Container = styled.div(({ scrollingDown }) => ({
   alignItems: "center",
-  color: "white",
+  color: "black",
   display: "flex",
   fontSize: "14px",
-  height: "100px",
-  justifyContent: "space-between",
-  left: 0,
-  padding: "0 40px",
-  position: "fixed",
-  right: 0,
-  top: scrollingDown ? "-100px" : 0,
-  transition: "0.6s all",
-  // borderBottom: "1px solid black",
-  // boxShadow: "rgba(36, 18, 77, 0.32) 0px 4px 4px -4px"
+  height: "120px",
+  width: "100%",
+  padding: "0",
+  position: "relative",
+  margin: "0 auto",
+  maxWidth: "1400px",
+
+  "& > *": {
+    width: "33%"
+  }
 }));
 
 const Logo = styled(Link)(({ dark }) => ({
-  fontSize: "46px",
-  fontWeight: 900,
+  fontSize: "26px",
+  fontWeight: 700,
   textDecoration: "none",
   textTransform: "capitalize",
-  color: dark ? "black" : "black",
+  color: "black",
   position: "relative",
   zIndex: 1,
-  fontFamily: FONTS.amita,
-  fontFamily: FONTS.another,
-  fontFamily: FONTS.caveat,
-  fontFamily: FONTS.caveatBrush,
-  fontFamily: FONTS.covered,
-  fontFamily: FONTS.drSugiyama, //yep
-  fontFamily: FONTS.gochi,
-  fontFamily: FONTS.hachi,
-  fontFamily: FONTS.longCang,
-  fontFamily: FONTS.mansalva,
-  fontFamily: FONTS.reenie, //yep
+  textAlign: "center",
 }));
 
 const HeaderLinks = styled.div({
   display: "flex",
+  fontFamily: FONTS.poppins,
   textTransform: "capitalize",
   [`@media (max-width: ${BREAKPOINT.small}px)`]: {
     display: "none",
   },
 });
 
-const LinkStyled = styled(NavLink)({
+const LinkWrapper = styled.div(({ active }) => ({
+  borderBottom: active ? "1px solid black" : 0,
+  marginRight: "20px",
+}));
+
+const LinkStyled = styled(NavLink)(({ active }) => ({
   color: "black",
-  marginLeft: "18px",
-  fontSize: "20px",
-  fontWeight: 800,
+  
+  fontSize: "16px",
+  textDecoration: "none"
+}));
+
+const SocialLinks = styled.div({
+  display: "flex",
+  justifyContent: "flex-end"
+});
+
+const IconLink = styled.a({
   textDecoration: "none",
+});
+
+const Icon = styled.i({
+  fontSize: "22px",
+  marginLeft: "20px",
+  color: COLORS.secondary,
 });
 
 const MobileHeader = styled.div(({ show }) => ({
