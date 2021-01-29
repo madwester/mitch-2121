@@ -6,8 +6,8 @@ const Footer = () => {
   return(
     <Container>
       <div style={{ marginBottom: "12px" }}>
-        {socialLinks.map(link => (
-          <IconLink href={link.href}>
+        {socialLinks.map((link, i) => (
+          <IconLink href={link.href} key={i}>
             <Icon className={link.className} />
           </IconLink>
         ))}

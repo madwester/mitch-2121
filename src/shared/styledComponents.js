@@ -3,7 +3,7 @@ import { BREAKPOINT } from "../shared/breakpoint";
 
 export const Main = styled.div({
   margin: "0 auto",
-  maxWidth: "1400px",
+  maxWidth: "1600px",
 });
 
 export const Row = styled.div({
@@ -15,12 +15,13 @@ export const Row = styled.div({
   justifyContent: "center",
 });
 
-export const Hero = styled.div(({ image }) => ({
+export const Hero = styled.div(({ image, position = "unset" }) => ({
   backgroundImage: `url('${image}')`,
-  backgroundPosition: "unset",
+  backgroundPosition: position,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   height: "700px",
+  borderRadius: "4px",
 
   [`@media (max-width: ${BREAKPOINT.small}px)`]: {
     backgroundPosition: "right",
@@ -29,11 +30,13 @@ export const Hero = styled.div(({ image }) => ({
 
 export const Heading = styled.h1({
   fontWeight: 700,
-  margin: "0 0 16px",
+  margin: "60px 30px",
+  fontSize: "50px",
 });
 
 export const Text = styled.p({
   margin: 0,
+  lineHeight: 1.5,
 });
 
 export const Button = styled.button({

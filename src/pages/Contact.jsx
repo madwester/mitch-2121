@@ -5,7 +5,7 @@ import { Heading, Text, Hero, Main } from '../shared/styledComponents';
 
 const Contact = () => (
   <Main>
-    <Hero image={Sitting}/>
+    <Hero image={Sitting} position="center" />
     <Content>
       <Heading>Wanna get in touch?</Heading>
       <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta possimus nobis beatae fugiat omnis! Necessitatibus dolorum totam perspiciatis et doloribus odio corporis, eius exercitationem consequatur eum numquam facere, inventore ab! Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta possimus nobis beatae fugiat omnis! Necessitatibus dolorum totam perspiciatis et doloribus odio corporis, eius exercitationem consequatur eum numquam facere, inventore ab! 

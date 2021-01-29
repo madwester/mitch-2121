@@ -4,6 +4,7 @@ import "./App.css";
 import { css } from "@emotion/react";
 import { Global } from "@emotion/react";
 import Home from "./pages/Home";
+import Home2 from "./pages/Home2";
 import Music from "./pages/Music";
 import Contact from "./pages/Contact";
 import Biography from "./pages/Biography";
@@ -13,11 +14,12 @@ import Header from "./components/Header";
 import Events from "./pages/Events";
 import FONTS from "./shared/fonts";
 import "@fortawesome/fontawesome-free/js/all";
+import { BREAKPOINT } from "./shared/breakpoint";
 
 const globalStyles = css({
   "*": {
     boxSizing: "border-box",
-    fontFamily: FONTS.mandrope,
+    fontFamily: FONTS.poppins,
     lineHeight: 1.5,
   },
 });
@@ -33,6 +35,9 @@ const App = () => {
             <Route exact path="/">
               <Home />
             </Route>
+            <Route exact path="/home2">
+              <Home2 />
+            </Route>
             <Route exact path="/music">
               <Music />
             </Route>
@@ -47,7 +52,6 @@ const App = () => {
             </Route>
           </Switch>
         </Wrapper>
-
         <Footer />
       </Main>
     </Router>
@@ -60,7 +64,12 @@ const Main = styled.div({
   display: "flex",
   flexDirection: "column",
   minHeight: "100vh",
+  padding: "0 24px",
   position: "relative",
+
+  [`@media (max-width: ${BREAKPOINT.small}px)`]: {
+    padding: 0,
+  },
 });
 
 const Wrapper = styled.div({

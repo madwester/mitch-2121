@@ -13,6 +13,7 @@ const FONTS = {
   mandrope: "'Manrope', sans-serif",
   mansalva: "'Mansalva', cursive",
   noto: "'Noto Sans TC', sans-serif",
+  poppins: "'Poppins', sans-serif",
   shep: "'Mrs Sheppards', cursive",
   reenie: "'Reenie Beanie', cursive",
   satisfy: "'Satisfy', cursive",

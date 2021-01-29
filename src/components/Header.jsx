@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import { BREAKPOINT } from "../shared/breakpoint";
@@ -12,7 +12,8 @@ import COLORS from "../shared/colors";
 const Header = () => {
   const [scrollingDown, setScrollingDown] = useState(false);
   const [scrollTop, setScrollTop] = useState(0);
-  let path = window.location.pathname;
+  const location = useLocation();
+  const path = location.pathname;
 
   useEffect(() => {
     const onScroll = () => {
@@ -32,29 +33,24 @@ const Header = () => {
   const [show, setShow] = useState(false);
   return (
     <Container scrollingDown={scrollingDown}>
-      <HeaderLinks>
-        {headerItems.map((item, i) => {
-        return (
-          <LinkWrapper active={path.includes(item.title)}>
-            <LinkStyled
-              
-              exact to={`/${item.slug}`}
-              key={i}
-            >
-              {item.title}
+      <DesktopWrapper>
+        <HeaderLinks>
+          {headerItems.map((item, i) => (
+            <LinkStyled active={path.includes(item.slug.toLowerCase())} key={i} to={`/${item.slug}`}>
+                {item.title}
             </LinkStyled>
-          </LinkWrapper>
-         
-        )})}
-      </HeaderLinks>
-      <Logo dark={show} exact to="/">Mitch Tolnay</Logo>
-      <SocialLinks>
-      {socialLinks.map(link => (
-          <IconLink href={link.href}>
-            <Icon className={link.className} />
-          </IconLink>
-        ))}
-      </SocialLinks>
+          ))}
+        </HeaderLinks>
+        <Logo dark={show} to="/">Mitch Tolnay</Logo>
+        <SocialLinks>
+        {socialLinks.map((link, i) => (
+            <IconLink href={link.href} key={i}>
+              <Icon className={link.className} />
+            </IconLink>
+          ))}
+        </SocialLinks>
+      </DesktopWrapper>
+      
       <BurgerMenuButton onClick={() => setShow(!show)}>
         <BurgerLine active={show} className="top" />
         <BurgerLine active={show} className="bottom" />
@@ -62,7 +58,7 @@ const Header = () => {
       <MobileHeader show={show}>
           <MobileHeaderLinks show={show}>
             {headerItems.map((item, i) => (
-              <MobileLinkStyled exact key={i} to={`/${item.slug}`}>{item.title}</MobileLinkStyled>
+              <MobileLinkStyled exact={true} key={i} to={`/${item.slug}`}>{item.title}</MobileLinkStyled>
           ))}
           </MobileHeaderLinks>
       </MobileHeader>
@@ -94,13 +90,22 @@ const Container = styled.div(({ scrollingDown }) => ({
   padding: "0",
   position: "relative",
   margin: "0 auto",
-  maxWidth: "1400px",
+  maxWidth: "1600px",
 
-  "& > *": {
-    width: "33%"
-  }
+  [`@media (max-width: ${BREAKPOINT.small}px)`]: {
+    justifyContent: "space-between",
+    padding: "0 24px"
+  },
 }));
 
+const DesktopWrapper = styled.div({
+  alignItems: "center",
+  display: "flex",
+  width: "100%",
+  "& > *": {
+    width: "33%",
+  }
+});
 const Logo = styled(Link)(({ dark }) => ({
   fontSize: "26px",
   fontWeight: 700,
@@ -110,6 +115,10 @@ const Logo = styled(Link)(({ dark }) => ({
   position: "relative",
   zIndex: 1,
   textAlign: "center",
+
+  [`@media (max-width: ${BREAKPOINT.small}px)`]: {
+    textAlign: "left"
+  },
 }));
 
 const HeaderLinks = styled.div({
@@ -121,21 +130,22 @@ const HeaderLinks = styled.div({
   },
 });
 
-const LinkWrapper = styled.div(({ active }) => ({
+const LinkStyled = styled(Link)(({ active }) => ({
   borderBottom: active ? "1px solid black" : 0,
   marginRight: "20px",
-}));
-
-const LinkStyled = styled(NavLink)(({ active }) => ({
   color: "black",
-  
   fontSize: "16px",
-  textDecoration: "none"
+  textDecoration: "none",
+  paddingBottom: "4px",
 }));
 
 const SocialLinks = styled.div({
   display: "flex",
-  justifyContent: "flex-end"
+  justifyContent: "flex-end",
+
+  [`@media (max-width: ${BREAKPOINT.small}px)`]: {
+    display: "none"
+  }
 });
 
 const IconLink = styled.a({
@@ -145,23 +155,24 @@ const IconLink = styled.a({
 const Icon = styled.i({
   fontSize: "22px",
   marginLeft: "20px",
-  color: COLORS.secondary,
+  color: "black",
 });
 
 const MobileHeader = styled.div(({ show }) => ({
+  alignItems: "center",
   animationDuration: "0.2s",
   animationName: fadeAnimation,
   background: "white",
   bottom: 0,
   display: show ? "flex" : "none",
+  flexDirection: "column",
+  height: "100vh",
+  justifyContent: "center",
   left: 0,
   position: "fixed",
   right: 0,
   top: 0,
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  transition: "0.6s all"
+  transition: "0.3s all",
 }));
 
 const MobileHeaderLinks = styled.div(({ show }) => ({

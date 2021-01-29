@@ -34,8 +34,8 @@ const Events = () => {
       </Row>
       
       <FeatureRow>
-        {FeatureItems.map(item => (
-          <FeatureItem>
+        {FeatureItems.map((item, i) => (
+          <FeatureItem key={i}>
             <Icon className={item.iconClassName} />
             <ItemHeading>{item.heading}</ItemHeading>
             <ItemSubheading>{item.subheading}</ItemSubheading>
