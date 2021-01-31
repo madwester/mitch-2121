@@ -3,4 +3,5 @@ const COLORS = {
   secondary: "#38383b",
   darkGray: "#38383B",
 };
+
 export default COLORS;

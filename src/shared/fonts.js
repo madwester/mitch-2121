@@ -1,5 +1,6 @@
 const FONTS = {
   amita: "'Amita', cursive",
+  another: "'Just Another Hand', cursive",
   caveat: "'Caveat', cursive",
   caveatBrush: "'Caveat Brush', cursive",
   covered: "'Covered By Your Grace', cursive",
@@ -7,19 +8,19 @@ const FONTS = {
   drSugiyama: "'Dr Sugiyama', cursive",
   gochi: "'Gochi Hand', cursive",
   hachi: "'Hachi Maru Pop', cursive",
-  another: "'Just Another Hand', cursive",
   lato: "'Lato', sans-serif",
   longCang: "'Long Cang', cursive",
   mandrope: "'Manrope', sans-serif",
   mansalva: "'Mansalva', cursive",
+  nothing: "'Nothing You Could Do', cursive",
   noto: "'Noto Sans TC', sans-serif",
   poppins: "'Poppins', sans-serif",
-  shep: "'Mrs Sheppards', cursive",
+  questrial: "'Questrial', sans-serif",
   reenie: "'Reenie Beanie', cursive",
   satisfy: "'Satisfy', cursive",
   sed: "'Sedgwick Ave', cursive",
   sedDisplay: "'Sedgwick Ave Display', cursive",
-  questrial: "'Questrial', sans-serif",
+  shep: "'Mrs Sheppards', cursive",
 };
 
 export default FONTS;

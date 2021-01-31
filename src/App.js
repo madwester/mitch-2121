@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./App.css";
+import FONTS from "./shared/fonts";
+import "@fortawesome/fontawesome-free/js/all";
 import { css } from "@emotion/react";
 import { Global } from "@emotion/react";
+import "./App.css";
 import Home from "./pages/Home";
-import Home2 from "./pages/Home2";
 import Music from "./pages/Music";
 import Contact from "./pages/Contact";
 import Biography from "./pages/Biography";
@@ -12,9 +13,8 @@ import styled from "@emotion/styled";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Events from "./pages/Events";
-import FONTS from "./shared/fonts";
-import "@fortawesome/fontawesome-free/js/all";
-import { BREAKPOINT } from "./shared/breakpoint";
+
+import BREAKPOINTS from "./shared/breakpoints";
 
 const globalStyles = css({
   "*": {
@@ -25,18 +25,24 @@ const globalStyles = css({
 });
 
 const App = () => {
+  const [offsetY, setOffsetY] = useState(0);
+  const handleScroll = () => setOffsetY(window.pageYOffset);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <Router>
       <Global styles={globalStyles} />
-      <Main>
+      <Main offsetY={offsetY}>
         <Header />
         <Wrapper>
           <Switch>
             <Route exact path="/">
               <Home />
-            </Route>
-            <Route exact path="/home2">
-              <Home2 />
             </Route>
             <Route exact path="/music">
               <Music />
@@ -60,17 +66,17 @@ const App = () => {
 
 export default App;
 
-const Main = styled.div({
+const Main = styled.div(({ offsetY }) => ({
   display: "flex",
   flexDirection: "column",
   minHeight: "100vh",
   padding: "0 24px",
   position: "relative",
 
-  [`@media (max-width: ${BREAKPOINT.small}px)`]: {
+  [`@media (max-width: ${BREAKPOINTS.small}px)`]: {
     padding: 0,
   },
-});
+}));
 
 const Wrapper = styled.div({
   flexGrow: 1,

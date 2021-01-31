@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 import styled from "@emotion/styled";
-import { socialLinks } from '../shared/socialLinks';
+import { socialLinks } from "../shared/socialLinks";
+import BREAKPOINTS from "../shared/breakpoints";
 
 const Footer = () => {
-  return(
+  return (
     <Container>
       <div style={{ marginBottom: "12px" }}>
         {socialLinks.map((link, i) => (
@@ -27,8 +28,11 @@ const Container = styled.div({
   color: "black",
   flexDirection: "column",
   padding: "60px 0 60px",
-  marginTop: "120px"
+  marginTop: "120px",
 
+  [`@media (max-width: ${BREAKPOINTS.small}px)`]: {
+    marginTop: "40px",
+  },
 });
 
 const IconLink = styled.a({

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { BREAKPOINT } from "../shared/breakpoint";
+import BREAKPOINTS from "./breakpoints";
 
 export const Main = styled.div({
   margin: "0 auto",
@@ -13,20 +13,26 @@ export const Row = styled.div({
   padding: "40px 0 0",
   width: "100%",
   justifyContent: "center",
+
+  [`@media (max-width: ${BREAKPOINTS.small}px)`]: {
+    padding: 0,
+  },
 });
 
-export const Hero = styled.div(({ image, position = "unset" }) => ({
-  backgroundImage: `url('${image}')`,
-  backgroundPosition: position,
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  height: "700px",
-  borderRadius: "4px",
+export const Hero = styled.div(
+  ({ height = "700px", image, position = "unset" }) => ({
+    backgroundImage: `url('${image}')`,
+    backgroundPosition: position,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    height: height,
+    borderRadius: "4px",
 
-  [`@media (max-width: ${BREAKPOINT.small}px)`]: {
-    backgroundPosition: "right",
-  },
-}));
+    [`@media (max-width: ${BREAKPOINTS.small}px)`]: {
+      backgroundPosition: "right",
+    },
+  })
+);
 
 export const Heading = styled.h1({
   fontWeight: 700,
@@ -49,4 +55,12 @@ export const Button = styled.button({
   letterSpacing: "1.1px",
   color: "white",
   cursor: "pointer",
+
+  "&:hover": {
+    "& > span": {
+      background: "red",
+      transform: "translateX(8px)",
+      transition: "translate 0.2s",
+    },
+  },
 });
